@@ -32,7 +32,14 @@ export async function getAllSurveyResponses(): Promise<SurveyResponse[]> {
     .order('timestamp', { ascending: false });
   if (error) throw error;
   return (
-    data?.map((row: any) => ({
+    data?.map((row: {
+      id: string;
+      name: string;
+      answers: string;
+      comfortable_with?: string;
+      want_to_learn?: string;
+      timestamp: string;
+    }) => ({
       id: row.id,
       name: row.name,
       answers: JSON.parse(row.answers),
