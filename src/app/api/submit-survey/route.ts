@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     const { name, answers, timestamp } = body;
 
     // Validate required fields
-    if (!name || !answers || !Array.isArray(answers)) {
+    if (!name || !answers) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -20,6 +20,8 @@ export async function POST(request: NextRequest) {
       id: Date.now().toString(),
       name,
       answers,
+      comfortableWith: body.comfortableWith || [],
+      wantToLearn: body.wantToLearn || [],
       timestamp,
     };
 

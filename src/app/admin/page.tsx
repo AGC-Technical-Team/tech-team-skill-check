@@ -34,12 +34,22 @@ export default async function AdminPage() {
   const responses = await getSurveyResponses();
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-pink-200 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="bg-white shadow-lg rounded-lg p-8">
+        <div className="bg-white/80 backdrop-blur-sm shadow-2xl rounded-3xl p-8 border border-pink-200">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Survey Responses</h1>
-            <p className="text-gray-600">Total responses: {responses.length}</p>
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-4">📊 Survey Responses</h1>
+            <div className="flex items-center justify-between">
+              <p className="text-gray-600 text-lg">Total responses: {responses.length}</p>
+              {responses.length > 0 && (
+                <a
+                  href="/api/export-csv"
+                  className="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-6 py-3 rounded-2xl hover:from-pink-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 font-medium shadow-lg flex items-center gap-2"
+                >
+                  📥 Download CSV/Excel
+                </a>
+              )}
+            </div>
           </div>
 
           {responses.length === 0 ? (
