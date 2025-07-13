@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Nunito:wght@400;600;700&display=swap');
 
+/* CSS refresh fix - ensuring styles are applied properly */
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
