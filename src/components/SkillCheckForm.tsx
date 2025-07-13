@@ -42,6 +42,8 @@ export default function SkillCheckForm() {
   const [answers, setAnswers] = useState<{ [key: string]: string }>({});
   const [comfortableWith, setComfortableWith] = useState<string[]>([]);
   const [wantToLearn, setWantToLearn] = useState<string[]>([]);
+  const [comfortableOthers, setComfortableOthers] = useState('');
+  const [wantToLearnOthers, setWantToLearnOthers] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -81,8 +83,8 @@ export default function SkillCheckForm() {
         body: JSON.stringify({
           name,
           answers,
-          comfortableWith,
-          wantToLearn,
+          comfortableWith: comfortableOthers.trim() ? [...comfortableWith, comfortableOthers] : comfortableWith,
+          wantToLearn: wantToLearnOthers.trim() ? [...wantToLearn, wantToLearnOthers] : wantToLearn,
           timestamp: new Date().toISOString(),
         }),
       });
@@ -106,6 +108,8 @@ export default function SkillCheckForm() {
     setAnswers({});
     setComfortableWith([]);
     setWantToLearn([]);
+    setComfortableOthers('');
+    setWantToLearnOthers('');
     setSubmitted(false);
   };
 
@@ -141,10 +145,14 @@ export default function SkillCheckForm() {
         <h1 className="text-4xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-4">
           Technical Team Skill Recharge 💜
         </h1>
-        <p className="text-xl text-gray-700 mb-6">& Check-in ✨</p>
+        <div className="bg-gradient-to-r from-pink-200 to-purple-200 rounded-2xl p-4 mb-6">
+          <p className="text-2xl font-bold text-center bg-gradient-to-r from-pink-700 to-purple-700 bg-clip-text text-transparent">
+            ✨ Check-in ✨
+          </p>
+        </div>
         <div className="bg-gradient-to-r from-pink-100 to-purple-100 border-l-4 border-pink-400 p-6 rounded-r-2xl">
           <p className="text-pink-800 text-lg leading-relaxed">
-            Hey gorgeous! 🌸 Don&apos;t worry if you don&apos;t know something! You&apos;re here to learn and grow 🌱 
+            Hey girls! 🌸 Don&apos;t worry if you don&apos;t know something! You&apos;re here to learn and grow 🌱 
             — this is just to help us understand your current level and what excites you to learn! ❤️✨
           </p>
         </div>
@@ -181,6 +189,21 @@ export default function SkillCheckForm() {
 
   const renderQuestionPage = (sectionIndex: number) => {
     const section = skillAreas[sectionIndex];
+    
+    // Check if all questions in this section are answered
+    const allAnswered = section.questions.every((_, qIndex) => {
+      const questionId = `${sectionIndex}-${qIndex}`;
+      return answers[questionId] && answers[questionId].trim() !== '';
+    });
+    
+    const handleNext = () => {
+      if (!allAnswered) {
+        alert('Please answer all questions before proceeding! 💕');
+        return;
+      }
+      setCurrentStep(currentStep + 1);
+    };
+
     return (
       <div className="bg-white/80 backdrop-blur-sm shadow-2xl rounded-3xl p-8 border border-pink-200">
         <div className="mb-8">
@@ -203,19 +226,34 @@ export default function SkillCheckForm() {
         <div className="space-y-6">
           {section.questions.map((question, qIndex) => {
             const questionId = `${sectionIndex}-${qIndex}`;
+            const isAnswered = answers[questionId] && answers[questionId].trim() !== '';
+            
             return (
               <div key={qIndex} className="space-y-3">
                 <label htmlFor={questionId} className="block text-lg font-medium text-gray-700">
-                  {qIndex + 1}. {question}
+                  {qIndex + 1}. {question} <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   id={questionId}
                   value={answers[questionId] || ''}
                   onChange={(e) => handleAnswerChange(questionId, e.target.value)}
                   rows={3}
-                  className="w-full px-4 py-3 border-2 border-pink-200 rounded-2xl focus:ring-2 focus:ring-pink-400 focus:border-transparent bg-white/70 resize-vertical"
+                  className={`w-full px-4 py-3 border-2 rounded-2xl focus:ring-2 focus:ring-pink-400 focus:border-transparent bg-white/70 resize-vertical transition-all duration-300 ${
+                    isAnswered 
+                      ? 'border-green-300 bg-green-50/30' 
+                      : 'border-pink-200'
+                  }`}
                   placeholder="Share your thoughts... ✨"
+                  required
                 />
+                {isAnswered && (
+                  <span className="text-green-600 text-sm flex items-center gap-1">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Answered!
+                  </span>
+                )}
               </div>
             );
           })}
@@ -229,10 +267,18 @@ export default function SkillCheckForm() {
             ← Previous
           </button>
           <button
-            onClick={() => setCurrentStep(currentStep + 1)}
-            className="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-6 py-3 rounded-2xl hover:from-pink-600 hover:to-purple-600 transition-all duration-300 font-medium shadow-lg"
+            onClick={handleNext}
+            disabled={!allAnswered}
+            className={`px-6 py-3 rounded-2xl transition-all duration-300 font-medium shadow-lg ${
+              allAnswered
+                ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white hover:from-pink-600 hover:to-purple-600'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`}
           >
-            Next →
+            {allAnswered ? 'Next →' : `Please answer all questions (${section.questions.length - section.questions.filter((_, qIndex) => {
+              const questionId = `${sectionIndex}-${qIndex}`;
+              return answers[questionId] && answers[questionId].trim() !== '';
+            }).length} remaining)`}
           </button>
         </div>
       </div>
@@ -273,6 +319,18 @@ export default function SkillCheckForm() {
                   <span className="text-gray-700">{skill}</span>
                 </label>
               ))}
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Others (please specify):
+                </label>
+                <input
+                  type="text"
+                  value={comfortableOthers}
+                  onChange={(e) => setComfortableOthers(e.target.value)}
+                  className="w-full px-3 py-2 border border-pink-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent"
+                  placeholder="e.g., Graphic Design, Data Analysis..."
+                />
+              </div>
             </div>
           </div>
 
@@ -292,6 +350,18 @@ export default function SkillCheckForm() {
                   <span className="text-gray-700">{skill}</span>
                 </label>
               ))}
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Others (please specify):
+                </label>
+                <input
+                  type="text"
+                  value={wantToLearnOthers}
+                  onChange={(e) => setWantToLearnOthers(e.target.value)}
+                  className="w-full px-3 py-2 border border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent"
+                  placeholder="e.g., UI/UX Design, Cloud Computing..."
+                />
+              </div>
             </div>
           </div>
         </div>
