@@ -56,8 +56,13 @@ export async function GET() {
           response.timestamp || '',
           ...questions.map((_, i) => {
             const questionId = `${Math.floor(i / 5)}-${i % 5}`;
-            const answer = response.answers?.[questionId] || response.answers?.[i] || '';
-            return `"${answer.replace(/"/g, '""')}"`;
+            let answer = '';
+            if (Array.isArray(response.answers)) {
+              answer = response.answers[i] || '';
+            } else {
+              answer = response.answers?.[questionId] || '';
+            }
+            return `"${String(answer).replace(/"/g, '""')}"`;
           }),
           `"${(response.comfortableWith || []).join('; ')}"`,
           `"${(response.wantToLearn || []).join('; ')}"`,

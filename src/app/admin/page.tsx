@@ -1,5 +1,6 @@
 import { promises as fs } from 'fs';
 import path from 'path';
+import AdminAuth from '@/components/AdminAuth';
 
 const questions = [
   "Are you comfortable with public speaking or being on stage?",
@@ -30,9 +31,7 @@ async function getSurveyResponses() {
   }
 }
 
-export default async function AdminPage() {
-  const responses = await getSurveyResponses();
-
+function AdminContent({ responses }: { responses: { id: string; name: string; answers: string[]; timestamp: string; comfortableWith?: string[]; wantToLearn?: string[] }[] }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-pink-200 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -80,6 +79,29 @@ export default async function AdminPage() {
                         </p>
                       </div>
                     ))}
+                    
+                    {/* Skills sections */}
+                    {(response.comfortableWith && response.comfortableWith.length > 0) && (
+                      <div className="border-l-4 border-green-200 pl-4">
+                        <h3 className="text-sm font-medium text-gray-700 mb-1">
+                          Skills Comfortable With:
+                        </h3>
+                        <p className="text-gray-900">
+                          {response.comfortableWith.join(', ')}
+                        </p>
+                      </div>
+                    )}
+                    
+                    {(response.wantToLearn && response.wantToLearn.length > 0) && (
+                      <div className="border-l-4 border-purple-200 pl-4">
+                        <h3 className="text-sm font-medium text-gray-700 mb-1">
+                          Skills Want to Learn:
+                        </h3>
+                        <p className="text-gray-900">
+                          {response.wantToLearn.join(', ')}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
@@ -88,5 +110,15 @@ export default async function AdminPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default async function AdminPage() {
+  const responses = await getSurveyResponses();
+
+  return (
+    <AdminAuth>
+      <AdminContent responses={responses} />
+    </AdminAuth>
   );
 }
