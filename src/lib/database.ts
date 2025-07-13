@@ -1,20 +1,4 @@
-import Database from 'better-sqlite3';
-import path from 'path';
-
-const dbPath = path.join(process.cwd(), 'survey.db');
-const db = new Database(dbPath);
-
-// Create the table if it doesn't exist
-db.exec(`
-  CREATE TABLE IF NOT EXISTS survey_responses (
-    id TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
-    answers TEXT NOT NULL,
-    comfortable_with TEXT,
-    want_to_learn TEXT,
-    timestamp TEXT NOT NULL
-  )
-`);
+import { supabase } from './supabaseClient';
 
 export interface SurveyResponse {
   id: string;
@@ -25,43 +9,36 @@ export interface SurveyResponse {
   timestamp: string;
 }
 
-interface DatabaseRow {
-  id: string;
-  name: string;
-  answers: string;
-  comfortable_with: string;
-  want_to_learn: string;
-  timestamp: string;
+export async function insertSurveyResponse(response: SurveyResponse) {
+  const { error } = await supabase
+    .from('survey_responses')
+    .insert([
+      {
+        id: response.id,
+        name: response.name,
+        answers: JSON.stringify(response.answers),
+        comfortable_with: JSON.stringify(response.comfortableWith),
+        want_to_learn: JSON.stringify(response.wantToLearn),
+        timestamp: response.timestamp,
+      },
+    ]);
+  if (error) throw error;
 }
 
-export function insertSurveyResponse(response: SurveyResponse) {
-  const stmt = db.prepare(`
-    INSERT INTO survey_responses (id, name, answers, comfortable_with, want_to_learn, timestamp)
-    VALUES (?, ?, ?, ?, ?, ?)
-  `);
-  
-  stmt.run(
-    response.id,
-    response.name,
-    JSON.stringify(response.answers),
-    JSON.stringify(response.comfortableWith),
-    JSON.stringify(response.wantToLearn),
-    response.timestamp
+export async function getAllSurveyResponses(): Promise<SurveyResponse[]> {
+  const { data, error } = await supabase
+    .from('survey_responses')
+    .select('*')
+    .order('timestamp', { ascending: false });
+  if (error) throw error;
+  return (
+    data?.map((row: any) => ({
+      id: row.id,
+      name: row.name,
+      answers: JSON.parse(row.answers),
+      comfortableWith: JSON.parse(row.comfortable_with || '[]'),
+      wantToLearn: JSON.parse(row.want_to_learn || '[]'),
+      timestamp: row.timestamp,
+    })) || []
   );
 }
-
-export function getAllSurveyResponses(): SurveyResponse[] {
-  const stmt = db.prepare('SELECT * FROM survey_responses ORDER BY timestamp DESC');
-const rows = stmt.all() as DatabaseRow[];
-  
-  return rows.map((row) => ({
-    id: row.id,
-    name: row.name,
-    answers: JSON.parse(row.answers),
-    comfortableWith: JSON.parse(row.comfortable_with || '[]'),
-    wantToLearn: JSON.parse(row.want_to_learn || '[]'),
-    timestamp: row.timestamp
-  }));
-}
-
-export default db;
