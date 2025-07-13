@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
+import { getAllSurveyResponses } from '@/lib/database';
 
 const questions = [
   "Are you comfortable with public speaking or being on stage?",
@@ -22,15 +21,7 @@ const questions = [
 
 export async function GET() {
   try {
-    const filePath = path.join(process.cwd(), 'data', 'survey-responses.json');
-    
-    let responses = [];
-    try {
-      const fileContent = await fs.readFile(filePath, 'utf8');
-      responses = JSON.parse(fileContent);
-    } catch {
-      responses = [];
-    }
+    const responses = getAllSurveyResponses();
 
     if (responses.length === 0) {
       return NextResponse.json({ error: 'No responses found' }, { status: 404 });

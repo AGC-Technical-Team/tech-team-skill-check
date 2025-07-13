@@ -1,6 +1,5 @@
-import { promises as fs } from 'fs';
-import path from 'path';
 import AdminAuth from '@/components/AdminAuth';
+import { getAllSurveyResponses } from '@/lib/database';
 
 const questions = [
   "Are you comfortable with public speaking or being on stage?",
@@ -20,15 +19,8 @@ const questions = [
   "Bonus: Feel free to type in Arabic if you want!"
 ];
 
-async function getSurveyResponses() {
-  try {
-    const filePath = path.join(process.cwd(), 'data', 'survey-responses.json');
-    const fileContent = await fs.readFile(filePath, 'utf8');
-    return JSON.parse(fileContent);
-  } catch (error) {
-    console.error('Error reading survey responses:', error);
-    return [];
-  }
+function getSurveyResponses() {
+  return getAllSurveyResponses();
 }
 
 interface SurveyResponse {
@@ -134,8 +126,8 @@ function AdminContent({ responses }: { responses: SurveyResponse[] }) {
   );
 }
 
-export default async function AdminPage() {
-  const responses = await getSurveyResponses();
+export default function AdminPage() {
+  const responses = getSurveyResponses();
 
   return (
     <AdminAuth>
