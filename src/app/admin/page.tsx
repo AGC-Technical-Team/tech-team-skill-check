@@ -126,8 +126,8 @@ function AdminContent({ responses }: { responses: SurveyResponse[] }) {
   );
 }
 
-export default function AdminPage() {
-  const responses = getSurveyResponses();
+export default async function AdminPage() {
+  const responses = await getSurveyResponses();
 
   return (
     <AdminAuth>
