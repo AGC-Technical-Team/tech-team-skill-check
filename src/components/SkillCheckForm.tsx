@@ -115,23 +115,23 @@ export default function SkillCheckForm() {
 
   if (submitted) {
     return (
-      <div className="bg-white/80 backdrop-blur-sm shadow-2xl rounded-3xl p-8 text-center border border-pink-200">
-        <div className="mb-8">
-          <div className="w-24 h-24 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="scf-success">
+        <div className="scf-success-icon-wrap">
+          <div className="scf-success-icon">
+            <svg className="scf-success-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-4">
+          <h2 className="scf-success-title">
             Thank You, Beautiful! ✨
           </h2>
-          <p className="text-gray-600 text-lg">
+          <p className="scf-success-desc">
             Your skill check-in has been submitted successfully! 🌸💜
           </p>
         </div>
         <button
           onClick={resetForm}
-          className="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-3 rounded-full hover:from-pink-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 font-medium shadow-lg"
+          className="scf-success-btn"
         >
           Submit Another Response
         </button>
@@ -140,27 +140,27 @@ export default function SkillCheckForm() {
   }
 
   const renderWelcomePage = () => (
-    <div className="bg-white/80 backdrop-blur-sm shadow-2xl rounded-3xl p-8 border border-pink-200">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-4">
+    <div className="scf-welcome">
+      <div className="scf-welcome-header">
+        <h1 className="scf-welcome-title">
           Technical Team Skill Recharge 💜
         </h1>
-        <div className="bg-gradient-to-r from-pink-200 to-purple-200 rounded-2xl p-4 mb-6">
-          <p className="text-2xl font-bold text-center bg-gradient-to-r from-pink-700 to-purple-700 bg-clip-text text-transparent">
+        <div className="scf-welcome-badge">
+          <p className="scf-welcome-badge-text">
             ✨ Check-in ✨
           </p>
         </div>
-        <div className="bg-gradient-to-r from-pink-100 to-purple-100 border-l-4 border-pink-400 p-6 rounded-r-2xl">
-          <p className="text-pink-800 text-lg leading-relaxed">
+        <div className="scf-welcome-desc-wrap">
+          <p className="scf-welcome-desc">
             Hey girls! 🌸 Don&apos;t worry if you don&apos;t know something! You&apos;re here to learn and grow 🌱 
             — this is just to help us understand your current level and what excites you to learn! ❤️✨
           </p>
         </div>
       </div>
 
-      <div className="space-y-6">
+      <div className="scf-welcome-form">
         <div>
-          <label htmlFor="name" className="block text-lg font-medium text-gray-700 mb-3">
+          <label htmlFor="name" className="scf-label-lg">
             What&apos;s your beautiful name? 💕
           </label>
           <input
@@ -169,16 +169,16 @@ export default function SkillCheckForm() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            className="w-full px-6 py-4 border-2 border-pink-200 rounded-2xl focus:ring-2 focus:ring-pink-400 focus:border-transparent bg-white/70 text-lg"
+            className="scf-input-lg"
             placeholder="Enter your name here..."
           />
         </div>
 
-        <div className="pt-6">
+        <div className="scf-welcome-btn-wrap">
           <button
             onClick={() => setCurrentStep(1)}
             disabled={!name.trim()}
-            className="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white py-4 px-8 rounded-2xl hover:from-pink-600 hover:to-purple-600 disabled:from-gray-400 disabled:to-gray-400 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105 font-medium text-lg shadow-lg"
+            className="scf-welcome-btn"
           >
             Let&apos;s Start! 🚀
           </button>
@@ -205,50 +205,50 @@ export default function SkillCheckForm() {
     };
 
     return (
-      <div className="bg-white/80 backdrop-blur-sm shadow-2xl rounded-3xl p-8 border border-pink-200">
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+      <div className="scf-question-page">
+        <div className="scf-question-header">
+          <div className="scf-question-title-wrap">
+            <h2 className="scf-question-title">
               {section.title} 💜
             </h2>
-            <span className="text-pink-500 font-medium">
+            <span className="scf-question-step">
               {sectionIndex + 1} of {skillAreas.length}
             </span>
           </div>
-          <div className="w-full bg-pink-200 rounded-full h-2">
+          <div className="scf-question-progress-bar">
             <div 
-              className="bg-gradient-to-r from-pink-500 to-purple-500 h-2 rounded-full transition-all duration-300"
+              className="scf-question-progress-fill"
               style={{ width: `${((sectionIndex + 1) / skillAreas.length) * 100}%` }}
             />
           </div>
         </div>
 
-        <div className="space-y-6">
+        <div className="scf-question-content">
           {section.questions.map((question, qIndex) => {
             const questionId = `${sectionIndex}-${qIndex}`;
             const isAnswered = answers[questionId] && answers[questionId].trim() !== '';
             
             return (
-              <div key={qIndex} className="space-y-3">
-                <label htmlFor={questionId} className="block text-lg font-medium text-gray-700">
-                  {qIndex + 1}. {question} <span className="text-red-500">*</span>
+              <div key={qIndex} className="scf-question-item">
+                <label htmlFor={questionId} className="scf-question-label">
+                  {qIndex + 1}. {question} <span className="scf-question-required">*</span>
                 </label>
                 <textarea
                   id={questionId}
                   value={answers[questionId] || ''}
                   onChange={(e) => handleAnswerChange(questionId, e.target.value)}
                   rows={3}
-                  className={`w-full px-4 py-3 border-2 rounded-2xl focus:ring-2 focus:ring-pink-400 focus:border-transparent bg-white/70 resize-vertical transition-all duration-300 ${
+                  className={`scf-question-textarea ${
                     isAnswered 
-                      ? 'border-green-300 bg-green-50/30' 
-                      : 'border-pink-200'
+                      ? 'scf-question-textarea-answered' 
+                      : 'scf-question-textarea-unanswered'
                   }`}
                   placeholder="Share your thoughts... ✨"
                   required
                 />
                 {isAnswered && (
-                  <span className="text-green-600 text-sm flex items-center gap-1">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <span className="scf-question-answered-badge">
+                    <svg className="scf-question-answered-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     Answered!
@@ -259,20 +259,20 @@ export default function SkillCheckForm() {
           })}
         </div>
 
-        <div className="flex justify-between pt-8">
+        <div className="scf-question-footer">
           <button
             onClick={() => setCurrentStep(currentStep - 1)}
-            className="bg-white text-pink-600 px-6 py-3 rounded-2xl hover:bg-pink-50 transition-all duration-300 font-medium border-2 border-pink-200"
+            className="scf-question-prev-btn"
           >
             ← Previous
           </button>
           <button
             onClick={handleNext}
             disabled={!allAnswered}
-            className={`px-6 py-3 rounded-2xl transition-all duration-300 font-medium shadow-lg ${
+            className={`scf-question-next-btn ${
               allAnswered
-                ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white hover:from-pink-600 hover:to-purple-600'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                ? 'scf-question-next-btn-enabled'
+                : 'scf-question-next-btn-disabled'
             }`}
           >
             {allAnswered ? 'Next →' : `Please answer all questions (${section.questions.length - section.questions.filter((_, qIndex) => {
@@ -292,73 +292,77 @@ export default function SkillCheckForm() {
     ];
 
     return (
-      <div className="bg-white/80 backdrop-blur-sm shadow-2xl rounded-3xl p-8 border border-pink-200">
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-4">
+      <div className="scf-comfort-level-page">
+        <div className="scf-comfort-level-header">
+          <h2 className="scf-comfort-level-title">
             What&apos;s Your Comfort Zone? 💕
           </h2>
-          <p className="text-gray-600 text-lg">
+          <p className="scf-comfort-level-desc">
             Let us know what you&apos;re comfortable with and what you&apos;d love to learn! ✨
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-pink-600 mb-4">
+        <div className="scf-comfort-level-grid">
+          <div className="scf-comfort-level-section">
+            <h3 className="scf-comfort-level-section-title">
               I&apos;m Comfortable With: 🌟
             </h3>
-            <div className="space-y-3">
+            <div className="scf-comfort-level-skills">
               {allSkills.map((skill) => (
-                <label key={skill} className="flex items-center space-x-3 cursor-pointer">
+                <label key={skill} className="scf-comfort-level-skill-item">
                   <input
                     type="checkbox"
                     checked={comfortableWith.includes(skill)}
                     onChange={() => handleComfortableToggle(skill)}
-                    className="w-5 h-5 text-pink-500 border-pink-300 rounded focus:ring-pink-400"
+                    className="scf-comfort-level-checkbox"
                   />
-                  <span className="text-gray-700">{skill}</span>
+                  <span className="scf-comfort-level-skill-text">
+                    {skill}
+                  </span>
                 </label>
               ))}
-              <div className="mt-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+              <div className="scf-comfort-level-others-input">
+                <label className="scf-comfort-level-others-label">
                   Others (please specify):
                 </label>
                 <input
                   type="text"
                   value={comfortableOthers}
                   onChange={(e) => setComfortableOthers(e.target.value)}
-                  className="w-full px-3 py-2 border border-pink-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent"
+                  className="scf-comfort-level-others-input-field"
                   placeholder="e.g., Graphic Design, Data Analysis..."
                 />
               </div>
             </div>
           </div>
 
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-purple-600 mb-4">
+          <div className="scf-comfort-level-section">
+            <h3 className="scf-comfort-level-section-title">
               I Want to Learn: 🌱
             </h3>
-            <div className="space-y-3">
+            <div className="scf-comfort-level-skills">
               {allSkills.map((skill) => (
-                <label key={skill} className="flex items-center space-x-3 cursor-pointer">
+                <label key={skill} className="scf-comfort-level-skill-item">
                   <input
                     type="checkbox"
                     checked={wantToLearn.includes(skill)}
                     onChange={() => handleLearnToggle(skill)}
-                    className="w-5 h-5 text-purple-500 border-purple-300 rounded focus:ring-purple-400"
+                    className="scf-comfort-level-checkbox"
                   />
-                  <span className="text-gray-700">{skill}</span>
+                  <span className="scf-comfort-level-skill-text">
+                    {skill}
+                  </span>
                 </label>
               ))}
-              <div className="mt-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+              <div className="scf-comfort-level-others-input">
+                <label className="scf-comfort-level-others-label">
                   Others (please specify):
                 </label>
                 <input
                   type="text"
                   value={wantToLearnOthers}
                   onChange={(e) => setWantToLearnOthers(e.target.value)}
-                  className="w-full px-3 py-2 border border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent"
+                  className="scf-comfort-level-others-input-field"
                   placeholder="e.g., UI/UX Design, Cloud Computing..."
                 />
               </div>
@@ -366,17 +370,17 @@ export default function SkillCheckForm() {
           </div>
         </div>
 
-        <div className="flex justify-between pt-8">
+        <div className="scf-comfort-level-footer">
           <button
             onClick={() => setCurrentStep(currentStep - 1)}
-            className="bg-white text-pink-600 px-6 py-3 rounded-2xl hover:bg-pink-50 transition-all duration-300 font-medium border-2 border-pink-200"
+            className="scf-comfort-level-prev-btn"
           >
             ← Previous
           </button>
           <button
             onClick={handleSubmit}
             disabled={isSubmitting}
-            className="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-4 rounded-2xl hover:from-pink-600 hover:to-purple-600 disabled:from-gray-400 disabled:to-gray-400 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105 font-medium text-lg shadow-lg"
+            className="scf-comfort-level-submit-btn"
           >
             {isSubmitting ? 'Submitting... ✨' : 'Submit My Check-in! 🚀'}
           </button>

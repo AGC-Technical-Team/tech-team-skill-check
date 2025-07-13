@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Nunito:wght@400;600;700&display=swap');
 
 :root {
   --background: #ffffff;
@@ -19,8 +19,571 @@
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Use a modern, friendly font for the whole app */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: 'Inter', 'Nunito', Arial, Helvetica, sans-serif;
+}
+
+.page-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fce7f3 0%, #f3e8ff 50%, #fbcfe8 100%);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .page-bg {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .page-bg {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.page-container {
+  max-width: 64rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* SkillCheckForm Styles */
+.scf-success, .scf-welcome, .scf-question-page, .scf-comfort-level-page {
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 32px 0 rgba(80,0,80,0.10), 0 1.5px 4px 0 rgba(80,0,80,0.10);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  border: 1px solid #f9a8d4;
+}
+.scf-success { text-align: center; }
+.scf-success-icon-wrap { margin-bottom: 2rem; }
+.scf-success-icon {
+  width: 6rem; height: 6rem;
+  background: linear-gradient(135deg, #f472b6 0%, #a78bfa 100%);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.5rem auto;
+}
+.scf-success-svg { width: 3rem; height: 3rem; color: #fff; }
+.scf-success-title {
+  font-size: 2rem; font-weight: bold;
+  background: linear-gradient(90deg, #db2777, #a21caf);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; color: transparent;
+  margin-bottom: 1rem;
+}
+.scf-success-desc { color: #4b5563; font-size: 1.125rem; }
+.scf-success-btn {
+  background: linear-gradient(90deg, #ec4899, #a21caf);
+  color: #fff; padding: 1rem 2rem; border-radius: 9999px;
+  font-weight: 500; box-shadow: 0 2px 8px 0 rgba(80,0,80,0.10);
+  transition: background 0.2s, transform 0.2s;
+  border: none; cursor: pointer;
+}
+.scf-success-btn:hover {
+  background: linear-gradient(90deg, #db2777, #7c3aed);
+  transform: scale(1.05);
+}
+
+.scf-welcome-header { text-align: center; margin-bottom: 2rem; }
+.scf-welcome-title {
+  font-size: 2.5rem; font-weight: bold;
+  background: linear-gradient(90deg, #db2777, #a21caf);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; color: transparent;
+  margin-bottom: 1rem;
+}
+.scf-welcome-badge {
+  background: linear-gradient(90deg, #fbcfe8, #ddd6fe);
+  border-radius: 1rem; padding: 1rem; margin-bottom: 1.5rem;
+}
+.scf-welcome-badge-text {
+  font-size: 1.5rem; font-weight: bold; text-align: center;
+  background: linear-gradient(90deg, #a21caf, #db2777);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; color: transparent;
+}
+.scf-welcome-desc-wrap {
+  background: linear-gradient(90deg, #fce7f3, #f3e8ff);
+  border-left: 4px solid #f472b6;
+  padding: 1.5rem; border-radius: 1rem 2rem 2rem 1rem;
+}
+.scf-welcome-desc {
+  color: #be185d; font-size: 1.125rem; line-height: 1.6;
+}
+.scf-welcome-form { display: flex; flex-direction: column; gap: 1.5rem; }
+.scf-label-lg {
+  display: block; font-size: 1.125rem; font-weight: 500; color: #374151; margin-bottom: 0.75rem;
+}
+.scf-input-lg {
+  width: 100%; padding: 1.5rem 1rem; border: 2px solid #f9a8d4; border-radius: 1rem;
+  font-size: 1.125rem; background: rgba(255,255,255,0.7);
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.scf-input-lg:focus {
+  outline: none; border-color: #f472b6; box-shadow: 0 0 0 2px #f472b6;
+}
+.scf-welcome-btn-wrap { padding-top: 1.5rem; }
+.scf-welcome-btn {
+  width: 100%; background: linear-gradient(90deg, #ec4899, #a21caf);
+  color: #fff; padding: 1.25rem 2rem; border-radius: 1rem;
+  font-weight: 500; font-size: 1.125rem; box-shadow: 0 2px 8px 0 rgba(80,0,80,0.10);
+  transition: background 0.2s, transform 0.2s;
+  border: none; cursor: pointer;
+}
+.scf-welcome-btn:disabled {
+  background: linear-gradient(90deg, #d1d5db, #d1d5db); color: #6b7280; cursor: not-allowed;
+}
+.scf-welcome-btn:not(:disabled):hover {
+  background: linear-gradient(90deg, #db2777, #7c3aed);
+  transform: scale(1.05);
+}
+
+/* Question Page Styles */
+.scf-question-header { margin-bottom: 2rem; }
+.scf-question-title-wrap { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.scf-question-title {
+  font-size: 2rem; font-weight: bold;
+  background: linear-gradient(90deg, #db2777, #a21caf);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; color: transparent;
+}
+.scf-question-step { color: #ec4899; font-weight: 500; }
+.scf-question-progress-bar {
+  width: 100%; background: #fbcfe8; border-radius: 9999px; height: 0.5rem;
+}
+.scf-question-progress-fill {
+  background: linear-gradient(90deg, #ec4899, #a21caf);
+  height: 0.5rem; border-radius: 9999px; transition: width 0.3s;
+}
+.scf-question-content { display: flex; flex-direction: column; gap: 1.5rem; }
+.scf-question-item { display: flex; flex-direction: column; gap: 0.5rem; }
+.scf-question-label {
+  display: block; font-size: 1.125rem; font-weight: 500; color: #374151;
+}
+.scf-question-required { color: #ef4444; }
+.scf-question-textarea {
+  width: 100%; padding: 1rem; border-radius: 1rem; font-size: 1rem;
+  background: rgba(255,255,255,0.7); resize: vertical; transition: border 0.2s, box-shadow 0.2s;
+  border: 2px solid #f9a8d4;
+}
+.scf-question-textarea:focus {
+  outline: none; border-color: #f472b6; box-shadow: 0 0 0 2px #f472b6;
+}
+.scf-question-textarea-answered {
+  border-color: #6ee7b7; background: rgba(16,185,129,0.08);
+}
+.scf-question-textarea-unanswered {
+  border-color: #f9a8d4;
+}
+.scf-question-answered-badge {
+  color: #16a34a; font-size: 0.875rem; display: flex; align-items: center; gap: 0.25rem;
+}
+.scf-question-answered-icon { width: 1.25rem; height: 1.25rem; color: #16a34a; }
+.scf-question-footer { display: flex; justify-content: space-between; padding-top: 2rem; gap: 1rem; }
+.scf-question-prev-btn {
+  background: #fff; color: #ec4899; padding: 0.75rem 1.5rem; border-radius: 1rem;
+  border: 2px solid #f9a8d4; font-weight: 500; transition: background 0.2s;
+}
+.scf-question-prev-btn:hover { background: #fdf2f8; }
+.scf-question-next-btn {
+  padding: 0.75rem 1.5rem; border-radius: 1rem; font-weight: 500; box-shadow: 0 2px 8px 0 rgba(80,0,80,0.10); transition: background 0.2s, color 0.2s;
+  border: none;
+}
+.scf-question-next-btn-enabled {
+  background: linear-gradient(90deg, #ec4899, #a21caf); color: #fff;
+}
+.scf-question-next-btn-enabled:hover {
+  background: linear-gradient(90deg, #db2777, #7c3aed);
+}
+.scf-question-next-btn-disabled {
+  background: #d1d5db; color: #6b7280; cursor: not-allowed;
+}
+
+/* Comfort Level Page Styles */
+.scf-comfort-level-header { margin-bottom: 2rem; text-align: center; }
+.scf-comfort-level-title {
+  font-size: 2rem; font-weight: bold;
+  background: linear-gradient(90deg, #db2777, #a21caf);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; color: transparent;
+  margin-bottom: 0.5rem;
+}
+.scf-comfort-level-desc { color: #be185d; font-size: 1.125rem; }
+.scf-comfort-level-grid {
+  display: grid; grid-template-columns: 1fr; gap: 2rem;
+}
+@media (min-width: 768px) {
+  .scf-comfort-level-grid { grid-template-columns: 1fr 1fr; }
+}
+.scf-comfort-level-section { display: flex; flex-direction: column; gap: 1rem; }
+.scf-comfort-level-section-title {
+  font-size: 1.25rem; font-weight: 600; color: #db2777; margin-bottom: 1rem;
+}
+.scf-comfort-level-skills { display: flex; flex-direction: column; gap: 0.75rem; }
+.scf-comfort-level-skill-item {
+  display: flex; align-items: center; gap: 0.75rem; cursor: pointer;
+}
+.scf-comfort-level-checkbox {
+  width: 1.25rem; height: 1.25rem; accent-color: #ec4899; border-radius: 0.5rem; border: 1.5px solid #f9a8d4;
+}
+.scf-comfort-level-skill-text { color: #374151; font-size: 1rem; }
+.scf-comfort-level-others-input { margin-top: 1rem; }
+.scf-comfort-level-others-label {
+  display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.5rem;
+}
+.scf-comfort-level-others-input-field {
+  width: 100%; padding: 0.5rem 0.75rem; border: 1.5px solid #f9a8d4; border-radius: 0.75rem;
+  font-size: 1rem; background: #fff;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.scf-comfort-level-others-input-field:focus {
+  outline: none; border-color: #f472b6; box-shadow: 0 0 0 2px #f472b6;
+}
+.scf-comfort-level-footer { display: flex; justify-content: space-between; padding-top: 2rem; gap: 1rem; }
+.scf-comfort-level-prev-btn {
+  background: #fff; color: #ec4899; padding: 1rem 2rem; border-radius: 1rem;
+  border: 2px solid #f9a8d4; font-weight: 500; transition: background 0.2s;
+}
+.scf-comfort-level-prev-btn:hover { background: #fdf2f8; }
+.scf-comfort-level-submit-btn {
+  background: linear-gradient(90deg, #ec4899, #a21caf); color: #fff; padding: 1.25rem 2rem; border-radius: 1rem;
+  font-weight: 500; font-size: 1.125rem; box-shadow: 0 2px 8px 0 rgba(80,0,80,0.10);
+  transition: background 0.2s, transform 0.2s;
+  border: none; cursor: pointer;
+}
+.scf-comfort-level-submit-btn:disabled {
+  background: linear-gradient(90deg, #d1d5db, #d1d5db); color: #6b7280; cursor: not-allowed;
+}
+.scf-comfort-level-submit-btn:not(:disabled):hover {
+  background: linear-gradient(90deg, #db2777, #7c3aed);
+  transform: scale(1.05);
+}
+
+/* SurveyForm Styles */
+.sf-success, .sf-form {
+  background: #fff;
+  box-shadow: 0 10px 32px 0 rgba(80,0,80,0.10), 0 1.5px 4px 0 rgba(80,0,80,0.10);
+  border-radius: 1rem;
+  padding: 2rem;
+}
+.sf-success { text-align: center; }
+.sf-success-icon-wrap { margin-bottom: 1.5rem; }
+.sf-success-icon {
+  width: 4rem; height: 4rem;
+  background: #bbf7d0;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem auto;
+}
+.sf-success-svg { width: 2rem; height: 2rem; color: #16a34a; }
+.sf-success-title {
+  font-size: 1.5rem; font-weight: bold; color: #111827; margin-bottom: 0.5rem;
+}
+.sf-success-desc { color: #4b5563; font-size: 1rem; }
+.sf-success-btn {
+  background: #2563eb; color: #fff; padding: 0.75rem 1.5rem; border-radius: 0.5rem;
+  font-weight: 500; border: none; cursor: pointer; transition: background 0.2s;
+}
+.sf-success-btn:hover { background: #1d4ed8; }
+
+.sf-form-header { margin-bottom: 2rem; }
+.sf-form-title {
+  font-size: 2rem; font-weight: bold; color: #111827; margin-bottom: 1rem;
+}
+.sf-form-desc-wrap {
+  background: #eff6ff; border-left: 4px solid #60a5fa; padding: 1rem; border-radius: 0 0.75rem 0.75rem 0;
+}
+.sf-form-desc { color: #1e40af; }
+.sf-form-fields { display: flex; flex-direction: column; gap: 1.5rem; }
+.sf-label {
+  display: block; font-size: 1rem; font-weight: 500; color: #374151; margin-bottom: 0.5rem;
+}
+.sf-input {
+  width: 100%; padding: 0.5rem 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem;
+  font-size: 1rem; background: #fff;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.sf-input:focus {
+  outline: none; border-color: #3b82f6; box-shadow: 0 0 0 2px #3b82f6;
+}
+.sf-question-item { display: flex; flex-direction: column; gap: 0.5rem; }
+.sf-textarea {
+  width: 100%; padding: 0.5rem 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem;
+  font-size: 1rem; background: #fff; resize: vertical;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.sf-textarea:focus {
+  outline: none; border-color: #3b82f6; box-shadow: 0 0 0 2px #3b82f6;
+}
+.sf-form-btn-wrap { padding-top: 1.5rem; }
+.sf-form-btn {
+  width: 100%; background: #2563eb; color: #fff; padding: 0.75rem 1.5rem; border-radius: 0.5rem;
+  font-weight: 500; font-size: 1rem; border: none; cursor: pointer; transition: background 0.2s;
+}
+.sf-form-btn:disabled {
+  background: #9ca3af; color: #fff; cursor: not-allowed;
+}
+.sf-form-btn:not(:disabled):hover {
+  background: #1d4ed8;
+}
+
+/* AdminAuth Styles */
+.aa-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fce7f3 0%, #f3e8ff 50%, #fbcfe8 100%);
+}
+.aa-center {
+  display: flex; align-items: center; justify-content: center;
+}
+.aa-auth-padding { padding-top: 3rem; padding-bottom: 3rem; padding-left: 1rem; padding-right: 1rem; }
+@media (min-width: 640px) { .aa-auth-padding { padding-left: 1.5rem; padding-right: 1.5rem; } }
+@media (min-width: 1024px) { .aa-auth-padding { padding-left: 2rem; padding-right: 2rem; } }
+.aa-auth-container { max-width: 28rem; width: 100%; }
+.aa-auth-card {
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 32px 0 rgba(80,0,80,0.10), 0 1.5px 4px 0 rgba(80,0,80,0.10);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  border: 1px solid #f9a8d4;
+}
+.aa-auth-header { text-align: center; margin-bottom: 2rem; }
+.aa-auth-title {
+  font-size: 2rem; font-weight: bold;
+  background: linear-gradient(90deg, #db2777, #a21caf);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; color: transparent;
+}
+.aa-auth-desc { color: #4b5563; margin-top: 0.5rem; }
+.aa-auth-form { display: flex; flex-direction: column; gap: 1.5rem; }
+.aa-label {
+  display: block; font-size: 1rem; font-weight: 500; color: #374151; margin-bottom: 0.5rem;
+}
+.aa-input {
+  width: 100%; padding: 0.75rem 1rem; border: 2px solid #f9a8d4; border-radius: 1rem;
+  font-size: 1rem; background: rgba(255,255,255,0.7);
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.aa-input:focus {
+  outline: none; border-color: #f472b6; box-shadow: 0 0 0 2px #f472b6;
+}
+.aa-error {
+  color: #dc2626; font-size: 0.875rem; text-align: center; background: #fef2f2; border: 1px solid #fecaca; border-radius: 0.75rem; padding: 0.75rem;
+}
+.aa-auth-btn {
+  width: 100%; background: linear-gradient(90deg, #ec4899, #a21caf);
+  color: #fff; padding: 1rem 2rem; border-radius: 1rem;
+  font-weight: 500; font-size: 1rem; box-shadow: 0 2px 8px 0 rgba(80,0,80,0.10);
+  transition: background 0.2s, transform 0.2s;
+  border: none; cursor: pointer;
+}
+.aa-auth-btn:hover {
+  background: linear-gradient(90deg, #db2777, #7c3aed);
+  transform: scale(1.05);
+}
+.aa-auth-footer { margin-top: 1.5rem; text-align: center; }
+.aa-auth-footer-text { font-size: 0.75rem; color: #6b7280; }
+.aa-loading-wrap { text-align: center; }
+.aa-loading-spinner {
+  border: 2px solid #f9a8d4; border-bottom: 2px solid #db2777; border-radius: 50%; width: 3rem; height: 3rem; margin: 0 auto; animation: aa-spin 1s linear infinite;
+}
+@keyframes aa-spin { 100% { transform: rotate(360deg); } }
+.aa-loading-text { color: #4b5563; margin-top: 1rem; }
+.aa-admin-bar {
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px 0 rgba(80,0,80,0.10);
+  border-bottom: 1px solid #f9a8d4;
+  margin-bottom: 2rem;
+}
+.aa-admin-bar-inner { max-width: 80rem; margin: 0 auto; padding-left: 1rem; padding-right: 1rem; }
+@media (min-width: 640px) { .aa-admin-bar-inner { padding-left: 1.5rem; padding-right: 1.5rem; } }
+@media (min-width: 1024px) { .aa-admin-bar-inner { padding-left: 2rem; padding-right: 2rem; } }
+.aa-admin-bar-content { display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; padding-bottom: 1rem; }
+.aa-admin-bar-welcome-text { color: #db2777; font-weight: 500; }
+.aa-admin-bar-logout {
+  background: linear-gradient(90deg, #ec4899, #a21caf); color: #fff; padding: 0.5rem 1.25rem; border-radius: 9999px;
+  font-weight: 500; font-size: 0.95rem; box-shadow: 0 2px 8px 0 rgba(80,0,80,0.10);
+  border: none; cursor: pointer; transition: background 0.2s, transform 0.2s;
+}
+.aa-admin-bar-logout:hover {
+  background: linear-gradient(90deg, #db2777, #7c3aed);
+  transform: scale(1.05);
+}
+
+/* Admin Page Styles */
+.admin-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fce7f3 0%, #f3e8ff 50%, #fbcfe8 100%);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media (min-width: 640px) {
+  .admin-bg { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+@media (min-width: 1024px) {
+  .admin-bg { padding-left: 2rem; padding-right: 2rem; }
+}
+.admin-container { max-width: 80rem; margin-left: auto; margin-right: auto; }
+.admin-card {
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 32px 0 rgba(80,0,80,0.10), 0 1.5px 4px 0 rgba(80,0,80,0.10);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  border: 1px solid #f9a8d4;
+}
+.admin-header { margin-bottom: 2rem; }
+.admin-title {
+  font-size: 2.5rem; font-weight: bold;
+  background: linear-gradient(90deg, #db2777, #a21caf);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; color: transparent;
+  margin-bottom: 1rem;
+}
+.admin-header-row { display: flex; align-items: center; justify-content: space-between; }
+.admin-total { color: #4b5563; font-size: 1.125rem; }
+.admin-download-btn {
+  background: linear-gradient(90deg, #ec4899, #a21caf); color: #fff; padding: 0.75rem 1.5rem; border-radius: 1rem;
+  font-weight: 500; box-shadow: 0 2px 8px 0 rgba(80,0,80,0.10);
+  border: none; cursor: pointer; transition: background 0.2s, transform 0.2s;
+  display: flex; align-items: center; gap: 0.5rem;
+  text-decoration: none;
+}
+.admin-download-btn:hover {
+  background: linear-gradient(90deg, #db2777, #7c3aed);
+  transform: scale(1.05);
+}
+.admin-empty { text-align: center; padding: 3rem 0; }
+.admin-empty-text { color: #6b7280; font-size: 1.125rem; }
+.admin-responses { display: flex; flex-direction: column; gap: 2rem; }
+.admin-response-card {
+  border: 1px solid #e5e7eb; border-radius: 1rem; padding: 1.5rem;
+  background: #fff;
+}
+.admin-response-header { margin-bottom: 1rem; }
+.admin-response-title { font-size: 1.25rem; font-weight: 600; color: #111827; }
+.admin-response-date { font-size: 0.95rem; color: #6b7280; }
+.admin-response-answers { display: flex; flex-direction: column; gap: 1.25rem; }
+.admin-question-block {
+  border-left: 4px solid #bfdbfe; padding-left: 1rem;
+}
+.admin-question-title { font-size: 1rem; font-weight: 500; color: #374151; margin-bottom: 0.25rem; }
+.admin-question-answer { color: #111827; white-space: pre-wrap; }
+.admin-question-no-answer { color: #9ca3af; font-style: italic; }
+.admin-skills-comfort {
+  border-left: 4px solid #bbf7d0; padding-left: 1rem;
+}
+.admin-skills-learn {
+  border-left: 4px solid #ddd6fe; padding-left: 1rem;
+}
+.admin-skills-title { font-size: 1rem; font-weight: 500; color: #374151; margin-bottom: 0.25rem; }
+.admin-skills-list { color: #111827; }
+
+/* HTML Landing Page Styles */
+.html-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fce7f3 0%, #f3e8ff 50%, #fbcfe8 100%);
+}
+.html-main { padding-top: 3rem; padding-bottom: 3rem; padding-left: 1rem; padding-right: 1rem; }
+@media (min-width: 640px) { .html-main { padding-left: 1.5rem; padding-right: 1.5rem; } }
+@media (min-width: 1024px) { .html-main { padding-left: 2rem; padding-right: 2rem; } }
+.html-container { max-width: 64rem; margin-left: auto; margin-right: auto; }
+.html-card {
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 32px 0 rgba(80,0,80,0.10), 0 1.5px 4px 0 rgba(80,0,80,0.10);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  border: 1px solid #f9a8d4;
+}
+.html-title {
+  font-size: 2.5rem; font-weight: bold;
+  background: linear-gradient(90deg, #db2777, #a21caf);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; color: transparent;
+  margin-bottom: 2rem; text-align: center;
+}
+.html-header { text-align: center; margin-bottom: 2rem; }
+.html-header-title { font-size: 1.25rem; color: #374151; margin-bottom: 1rem; }
+.html-header-desc { color: #4b5563; }
+.html-form { display: flex; flex-direction: column; gap: 1.5rem; }
+.html-label {
+  display: block; font-size: 1rem; font-weight: 500; color: #374151; margin-bottom: 0.5rem;
+}
+.html-input {
+  width: 100%; padding: 0.75rem 1rem; border: 1px solid #d1d5db; border-radius: 0.75rem;
+  font-size: 1rem; background: #fff;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.html-input:focus {
+  outline: none; border-color: #ec4899; box-shadow: 0 0 0 2px #ec4899;
+}
+.html-questions { display: flex; flex-direction: column; gap: 1.5rem; }
+.html-skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.html-skill-item { display: flex; align-items: center; gap: 0.5rem; }
+.html-checkbox { width: 1.1rem; height: 1.1rem; accent-color: #ec4899; border-radius: 0.5rem; border: 1.5px solid #f9a8d4; }
+.html-submit-btn {
+  width: 100%; background: linear-gradient(90deg, #ec4899, #a21caf); color: #fff; padding: 1.25rem 2rem; border-radius: 1rem;
+  font-weight: 600; font-size: 1.125rem; box-shadow: 0 2px 8px 0 rgba(80,0,80,0.10);
+  border: none; cursor: pointer; transition: background 0.2s, transform 0.2s;
+}
+.html-submit-btn:hover {
+  background: linear-gradient(90deg, #db2777, #7c3aed);
+  transform: scale(1.05);
+}
+
+/* Global box-sizing fix */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+input, textarea {
+  box-sizing: border-box;
+}
+
+/* Soften or remove border on main card/container classes */
+.scf-success, .scf-welcome, .scf-question-page, .scf-comfort-level-page,
+.sf-success, .sf-form,
+.aa-auth-card, .admin-card, .html-card {
+  border: none;
+}
+
+/* Ensure main containers are centered and have enough padding */
+.page-container, .admin-container, .html-container {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Add horizontal padding to input fields if needed */
+input, textarea, .sf-input, .sf-textarea, .aa-input, .scf-input-lg, .html-input {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Make input and textarea fields taller and more spacious */
+input, textarea, .sf-input, .sf-textarea, .aa-input, .scf-input-lg, .html-input {
+  min-height: 3rem;
+  font-size: 1.1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }

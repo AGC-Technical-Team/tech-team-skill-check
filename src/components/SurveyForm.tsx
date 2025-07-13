@@ -66,19 +66,19 @@ export default function SurveyForm() {
 
   if (submitted) {
     return (
-      <div className="bg-white shadow-lg rounded-lg p-8 text-center">
-        <div className="mb-6">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="sf-success">
+        <div className="sf-success-icon-wrap">
+          <div className="sf-success-icon">
+            <svg className="sf-success-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Thank you!</h2>
-          <p className="text-gray-600">Your responses have been submitted successfully. 🌱</p>
+          <h2 className="sf-success-title">Thank you!</h2>
+          <p className="sf-success-desc">Your responses have been submitted successfully. 🌱</p>
         </div>
         <button
           onClick={() => setSubmitted(false)}
-          className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+          className="sf-success-btn"
         >
           Submit Another Response
         </button>
@@ -87,20 +87,20 @@ export default function SurveyForm() {
   }
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Attendee Survey</h1>
-        <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
-          <p className="text-blue-800">
+    <div className="sf-form">
+      <div className="sf-form-header">
+        <h1 className="sf-form-title">Attendee Survey</h1>
+        <div className="sf-form-desc-wrap">
+          <p className="sf-form-desc">
           Don&apos;t worry if you don&apos;t know something! You&apos;re here to learn and grow 🌱 — this is just to help us understand your current level ❤️
           </p>
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="sf-form-fields">
         {/* Name field */}
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="name" className="sf-label">
             Your Name *
           </label>
           <input
@@ -109,15 +109,15 @@ export default function SurveyForm() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="sf-input"
             placeholder="Enter your name"
           />
         </div>
 
         {/* Questions */}
         {questions.map((question, index) => (
-          <div key={index} className="space-y-2">
-            <label htmlFor={`question-${index}`} className="block text-sm font-medium text-gray-700">
+          <div key={index} className="sf-question-item">
+            <label htmlFor={`question-${index}`} className="sf-label">
               {index + 1}. {question}
             </label>
             <textarea
@@ -125,18 +125,18 @@ export default function SurveyForm() {
               value={answers[index]}
               onChange={(e) => handleAnswerChange(index, e.target.value)}
               rows={3}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-vertical"
+              className="sf-textarea"
               placeholder="Your answer..."
             />
           </div>
         ))}
 
         {/* Submit button */}
-        <div className="pt-6">
+        <div className="sf-form-btn-wrap">
           <button
             type="submit"
             disabled={isSubmitting || !name.trim()}
-            className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
+            className="sf-form-btn"
           >
             {isSubmitting ? 'Submitting...' : 'Submit Survey'}
           </button>
