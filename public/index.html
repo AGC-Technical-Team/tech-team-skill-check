@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Team Skill Check</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Removed Tailwind CDN script for Next.js app -->
 </head>
 <body class="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-pink-200">
     <div class="py-12 px-4 sm:px-6 lg:px-8">
@@ -92,28 +92,9 @@
         });
 
         // Handle form submission
-        document.getElementById('surveyForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const formData = new FormData(e.target);
-            const data = {
-                name: formData.get('name'),
-                answers: {},
-                comfortableWith: formData.getAll('comfortable'),
-                wantToLearn: formData.getAll('wantToLearn'),
-                timestamp: new Date().toISOString()
-            };
-
-            // Collect question answers
-            questions.forEach((_, index) => {
-                data.answers[`0-${index}`] = formData.get(`question_${index}`) || '';
-            });
-
-            // For now, just show a success message
-            alert('Thank you for your submission! Your responses have been recorded.');
-            
-            // You can add actual submission logic here
-            console.log('Survey data:', data);
+        document.getElementById('surveyForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Thank you for submitting the survey!');
         });
     </script>
 </body>
