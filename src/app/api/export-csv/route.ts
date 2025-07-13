@@ -21,7 +21,7 @@ const questions = [
 
 export async function GET() {
   try {
-    const responses = getAllSurveyResponses();
+    const responses = await getAllSurveyResponses();
 
     if (responses.length === 0) {
       return NextResponse.json({ error: 'No responses found' }, { status: 404 });
