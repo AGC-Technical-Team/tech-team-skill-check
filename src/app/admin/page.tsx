@@ -69,16 +69,28 @@ function AdminContent({ responses }: { responses: { id: string; name: string; an
                   </div>
                   
                   <div className="space-y-4">
-                    {questions.map((question, qIndex) => (
-                      <div key={qIndex} className="border-l-4 border-blue-200 pl-4">
-                        <h3 className="text-sm font-medium text-gray-700 mb-1">
-                          {qIndex + 1}. {question}
-                        </h3>
-                        <p className="text-gray-900 whitespace-pre-wrap">
-                          {response.answers[qIndex] || <span className="text-gray-400 italic">No answer provided</span>}
-                        </p>
-                      </div>
-                    ))}
+                    {questions.map((question, qIndex) => {
+                      // Handle both array format and object format
+                      let answer = '';
+                      if (Array.isArray(response.answers)) {
+                        answer = response.answers[qIndex] || '';
+                      } else {
+                        // Handle object format with keys like "0-1", "0-0", etc.
+                        const questionId = `${Math.floor(qIndex / 5)}-${qIndex % 5}`;
+                        answer = response.answers?.[questionId] || '';
+                      }
+                      
+                      return (
+                        <div key={qIndex} className="border-l-4 border-blue-200 pl-4">
+                          <h3 className="text-sm font-medium text-gray-700 mb-1">
+                            {qIndex + 1}. {question}
+                          </h3>
+                          <p className="text-gray-900 whitespace-pre-wrap">
+                            {answer || <span className="text-gray-400 italic">No answer provided</span>}
+                          </p>
+                        </div>
+                      );
+                    })}
                     
                     {/* Skills sections */}
                     {(response.comfortableWith && response.comfortableWith.length > 0) && (

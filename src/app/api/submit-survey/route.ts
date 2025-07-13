@@ -2,6 +2,29 @@ import { NextRequest, NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
 
+// Helper function to read existing responses
+async function readResponses() {
+  try {
+    const filePath = path.join(process.cwd(), 'data', 'survey-responses.json');
+    const fileContent = await fs.readFile(filePath, 'utf8');
+    return JSON.parse(fileContent);
+  } catch (error) {
+    console.error('Error reading survey responses:', error);
+    return [];
+  }
+}
+
+// Helper function to write responses
+async function writeResponses(responses: any[]) {
+  try {
+    const filePath = path.join(process.cwd(), 'data', 'survey-responses.json');
+    await fs.writeFile(filePath, JSON.stringify(responses, null, 2));
+  } catch (error) {
+    console.error('Error writing survey responses:', error);
+    throw error;
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -25,32 +48,18 @@ export async function POST(request: NextRequest) {
       timestamp,
     };
 
-    // Define the path for the JSON file
-    const dataDir = path.join(process.cwd(), 'data');
-    const filePath = path.join(dataDir, 'survey-responses.json');
-
-    // Ensure the data directory exists
-    try {
-      await fs.access(dataDir);
-    } catch {
-      await fs.mkdir(dataDir, { recursive: true });
-    }
-
-    // Read existing data or create an empty array
-    let existingData = [];
-    try {
-      const fileContent = await fs.readFile(filePath, 'utf8');
-      existingData = JSON.parse(fileContent);
-    } catch {
-      // File doesn't exist or is empty, start with empty array
-      existingData = [];
-    }
-
+    // Read existing responses
+    const existingResponses = await readResponses();
+    
     // Add new response
-    existingData.push(response);
-
+    existingResponses.push(response);
+    
     // Write back to file
-    await fs.writeFile(filePath, JSON.stringify(existingData, null, 2));
+    await writeResponses(existingResponses);
+
+    // Also log to console for debugging
+    console.log('New survey response:', response);
+    console.log('Total responses:', existingResponses.length);
 
     return NextResponse.json(
       { message: 'Survey submitted successfully', id: response.id },
@@ -63,4 +72,10 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
+}
+
+// GET endpoint to retrieve responses
+export async function GET() {
+  const responses = await readResponses();
+  return NextResponse.json(responses);
 }
