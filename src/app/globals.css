@@ -587,3 +587,72 @@ input, textarea, .sf-input, .sf-textarea, .aa-input, .scf-input-lg, .html-input 
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+
+/* Headings and text contrast */
+h1, .sf-form-title, .admin-title, .html-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 1.5rem;
+  color: #1e293b;
+}
+h2, .scf-success-title, .scf-welcome-title, .scf-question-title, .scf-comfort-level-title, .admin-response-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 1rem;
+}
+h3, .admin-skills-title, .admin-question-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 0.5rem;
+}
+
+/* Section/card spacing */
+.page-container > *, .admin-container > *, .html-container > * {
+  margin-bottom: 2.5rem;
+}
+
+/* Card hover effect */
+.scf-success, .scf-welcome, .scf-question-page, .scf-comfort-level-page,
+.sf-success, .sf-form,
+.aa-auth-card, .admin-card, .html-card {
+  transition: box-shadow 0.25s, transform 0.18s;
+}
+.scf-success:hover, .scf-welcome:hover, .scf-question-page:hover, .scf-comfort-level-page:hover,
+.sf-success:hover, .sf-form:hover,
+.aa-auth-card:hover, .admin-card:hover, .html-card:hover {
+  box-shadow: 0 16px 40px 0 rgba(80,0,80,0.13), 0 2px 8px 0 rgba(80,0,80,0.10);
+  transform: translateY(-2px) scale(1.01);
+}
+
+/* Button polish */
+button, .sf-form-btn, .scf-success-btn, .scf-welcome-btn, .scf-question-next-btn, .scf-question-prev-btn, .scf-comfort-level-submit-btn, .scf-comfort-level-prev-btn, .aa-auth-btn, .aa-admin-bar-logout, .admin-download-btn, .html-submit-btn {
+  font-size: 1.15rem;
+  font-weight: 700;
+  border-radius: 1.25rem;
+  padding: 1.1rem 2.2rem;
+  box-shadow: 0 2px 8px 0 rgba(80,0,80,0.10);
+  transition: background 0.18s, color 0.18s, transform 0.18s, box-shadow 0.18s;
+  letter-spacing: 0.01em;
+}
+button:active, .sf-form-btn:active, .scf-success-btn:active, .scf-welcome-btn:active, .scf-question-next-btn:active, .scf-question-prev-btn:active, .scf-comfort-level-submit-btn:active, .scf-comfort-level-prev-btn:active, .aa-auth-btn:active, .aa-admin-bar-logout:active, .admin-download-btn:active, .html-submit-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 1px 4px 0 rgba(80,0,80,0.10);
+}
+
+/* Input focus and polish */
+input:focus, textarea:focus, .sf-input:focus, .sf-textarea:focus, .aa-input:focus, .scf-input-lg:focus, .html-input:focus {
+  background: #f3e8ff;
+  border-color: #a21caf;
+  outline: none;
+  box-shadow: 0 0 0 2px #a21caf33;
+  transition: background 0.18s, border-color 0.18s, box-shadow 0.18s;
+}
+
+/* Make placeholder text a bit lighter */
+input::placeholder, textarea::placeholder {
+  color: #b6b6c7;
+  opacity: 1;
+}
