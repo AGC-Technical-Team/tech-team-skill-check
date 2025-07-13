@@ -1,4 +1,14 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Technical Team Skill Check-in 💜✨
+
+Welcome to the Technical Team Skill Check-in project! This application provides a beautiful, multi-page form to assess and understand the current skills and learning aspirations of team members.
+
+## Features
+
+- **Beautiful UI**: Aesthetic design with a pink and purple theme 🌸💜
+- **Multi-Page Form**: Separates the questionnaire into sections for improved UX
+- **Backend Integration**: Stores responses locally in a JSON file
+- **Admin Panel**: View all submitted responses at `/admin`
+- **Mobile Responsive**: Works beautifully on all devices
 
 ## Getting Started
 
@@ -10,24 +20,31 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To create an optimized production build:
 
-## Learn More
+```bash
+npm run build
+npm start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Access Admin Page
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Visit `/admin` to access the admin panel and view all submissions
+- No authentication required for demo purposes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
+
+You can deploy this application using platforms like Vercel or Netlify. The application is designed to work with static/dynamic rendering.
+
+## Data Storage
+
+Responses are stored in `data/survey-responses.json`. In production, consider using a real database or backend service.
 
 ## Deploy on Vercel
 
