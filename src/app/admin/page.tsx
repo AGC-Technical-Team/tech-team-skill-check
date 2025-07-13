@@ -31,7 +31,16 @@ async function getSurveyResponses() {
   }
 }
 
-function AdminContent({ responses }: { responses: { id: string; name: string; answers: string[]; timestamp: string; comfortableWith?: string[]; wantToLearn?: string[] }[] }) {
+interface SurveyResponse {
+  id: string;
+  name: string;
+  answers: { [key: string]: string } | string[];
+  timestamp: string;
+  comfortableWith?: string[];
+  wantToLearn?: string[];
+}
+
+function AdminContent({ responses }: { responses: SurveyResponse[] }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-pink-200 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -57,7 +66,7 @@ function AdminContent({ responses }: { responses: { id: string; name: string; an
             </div>
           ) : (
             <div className="space-y-8">
-              {responses.map((response: { id: string; name: string; answers: string[]; timestamp: string; comfortableWith?: string[]; wantToLearn?: string[] }, index: number) => (
+              {responses.map((response: SurveyResponse, index: number) => (
                 <div key={response.id} className="border border-gray-200 rounded-lg p-6">
                   <div className="mb-4">
                     <h2 className="text-xl font-semibold text-gray-900">

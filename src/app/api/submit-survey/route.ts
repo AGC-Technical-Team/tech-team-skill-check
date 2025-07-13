@@ -2,6 +2,15 @@ import { NextRequest, NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
 
+interface SurveyResponse {
+  id: string;
+  name: string;
+  answers: { [key: string]: string };
+  comfortableWith: string[];
+  wantToLearn: string[];
+  timestamp: string;
+}
+
 // Helper function to read existing responses
 async function readResponses() {
   try {
@@ -15,7 +24,7 @@ async function readResponses() {
 }
 
 // Helper function to write responses
-async function writeResponses(responses: any[]) {
+async function writeResponses(responses: SurveyResponse[]) {
   try {
     const filePath = path.join(process.cwd(), 'data', 'survey-responses.json');
     await fs.writeFile(filePath, JSON.stringify(responses, null, 2));
