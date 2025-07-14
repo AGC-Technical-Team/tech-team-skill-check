@@ -25,10 +25,10 @@ export async function POST(request: NextRequest) {
     };
 
     // Insert into database
-    insertSurveyResponse(response);
+    await insertSurveyResponse(response);
 
     // Also log to console for debugging
-    console.log('New survey response:', response);
+    console.log('New survey response saved to Supabase:', response);
 
     return NextResponse.json(
       { message: 'Survey submitted successfully', id: response.id },
@@ -45,6 +45,14 @@ export async function POST(request: NextRequest) {
 
 // GET endpoint to retrieve responses
 export async function GET() {
-  const responses = getAllSurveyResponses();
-  return NextResponse.json(responses);
+  try {
+    const responses = await getAllSurveyResponses();
+    return NextResponse.json(responses);
+  } catch (error) {
+    console.error('Error fetching survey responses:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch responses' },
+      { status: 500 }
+    );
+  }
 }

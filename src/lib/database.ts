@@ -10,7 +10,9 @@ export interface SurveyResponse {
 }
 
 export async function insertSurveyResponse(response: SurveyResponse) {
-  const { error } = await supabase
+  console.log('Attempting to insert survey response:', response.id);
+  
+  const { data, error } = await supabase
     .from('survey_responses')
     .insert([
       {
@@ -21,8 +23,16 @@ export async function insertSurveyResponse(response: SurveyResponse) {
         want_to_learn: JSON.stringify(response.wantToLearn),
         timestamp: response.timestamp,
       },
-    ]);
-  if (error) throw error;
+    ])
+    .select();
+  
+  if (error) {
+    console.error('Supabase insert error:', error);
+    throw error;
+  }
+  
+  console.log('Successfully inserted response:', data);
+  return data;
 }
 
 export async function getAllSurveyResponses(): Promise<SurveyResponse[]> {
